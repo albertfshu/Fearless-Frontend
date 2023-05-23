@@ -1,15 +1,22 @@
-function createCard(name, description, pictureUrl) {
+function createCard(name, description, pictureUrl, starts, ends, location) {
     return `
     <div class="card m-4">
         <div class="card shadow">
-        <img src="${pictureUrl}" class="card-img-top">
-        <div class="card-body">
-            <h5 class="card-title">${name}</h5>
-            <p class="card-text">${description}</p>
-        </div>
+            <img src="${pictureUrl}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">${name}</h5>
+                <h6 class="card-subtitle text-muted">${location}</h6>
+                <p class="card-text">${description}</p>
+            </div>
+            <div class="card-footer">
+                ${new Date(starts).toLocaleDateString()} -
+                ${new Date(ends).toLocaleDateString()}
+            </div>
+            </div>
     </div>
     `;
 }
+
 
 
 
@@ -34,10 +41,10 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const title = details.conference.name;
                     const description = details.conference.description
                     const pictureUrl = details.conference.location.picture_url;
-                    // const location = details.conference.location.name;
-                    // const starts = details.conference.starts;
-                    // const ends = details.conference.ends;
-                    const html = createCard(title, description, pictureUrl);
+                    const location = details.conference.location.name;
+                    const starts = details.conference.starts;
+                    const ends = details.conference.ends;
+                    const html = createCard(title, description, pictureUrl, starts, ends, location);
                     const column = document.querySelector(`#col-${index}`);
                     column.innerHTML += html;
                     index += 1;
